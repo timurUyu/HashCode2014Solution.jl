@@ -1,0 +1,13 @@
+name = "HashCode2014Solution"
+uuid = "97e14263-c539-4146-b69d-05e6bfbd57df"
+authors = ["timurUyu <timurUyu@github.com> and contributors"]
+version = "1.0.0-DEV"
+
+[compat]
+julia = "1.9"
+
+[extras]
+Test = "8dfed614-e22c-5e08-85e1-65c5234f0b40"
+
+[targets]
+test = ["Test"]

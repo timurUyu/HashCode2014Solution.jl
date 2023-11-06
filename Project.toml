@@ -3,6 +3,9 @@ uuid = "97e14263-c539-4146-b69d-05e6bfbd57df"
 authors = ["timurUyu <timurUyu@github.com> and contributors"]
 version = "1.0.0-DEV"
 
+[deps]
+HashCode2014 = "7bbed249-721d-42ac-b1f6-7cf884be0fbe"
+
 [compat]
 julia = "1.9"
 

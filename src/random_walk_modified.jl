@@ -9,11 +9,13 @@ function random_walk_modified(rng::AbstractRNG, city::City)
     (; total_duration, nb_cars, starting_junction, streets) = city
     itineraries = Vector{Vector{Int}}(undef, nb_cars)
 
+    all_visited_streets = Set(Int[])
+
     for c in 1:nb_cars
         itinerary = [starting_junction]
         duration = 0
 
-        visited_streets = Set(Int[])
+        curr_visited_streets = Set(Int[])
         
         while true
             current_junction = last(itinerary)
@@ -49,10 +51,12 @@ function random_walk_modified(rng::AbstractRNG, city::City)
                     end
 
                     # weight based on whether visited street before
-                    if candidates[i][1] in visited_streets
+                    # if candidates[i][1] in curr_visited_streets
+                    #     push!(inds, i*ones(Int, 3)...)
+                    if candidates[i][1] in all_visited_streets
                         push!(inds, i*ones(Int, 1)...)
                     else
-                        push!(inds, i*ones(Int, 19)...)
+                        push!(inds, i*ones(Int, 49)...)
                     end
                     
                 end
@@ -60,7 +64,8 @@ function random_walk_modified(rng::AbstractRNG, city::City)
 
                 s, street = candidates[ind]
 
-                push!(visited_streets, s)
+                push!(curr_visited_streets, s)
+                push!(all_visited_streets, s)
                 
                 next_junction = HashCode2014.get_street_end(current_junction, street)
                 push!(itinerary, next_junction)

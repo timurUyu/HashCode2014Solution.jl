@@ -11,11 +11,7 @@ solution = HashCode2014Solution.random_walk(city)
 
 @show HashCode2014Solution.total_distance(solution, city)
 
-# HashCode2014Solution.plot_streets(city, solution)
-
 # modified
-solution_modified = HashCode2014Solution.random_walk_modified(city)
+@btime solution_modified = HashCode2014Solution.random_walk_modified($city)
 
 @show HashCode2014Solution.total_distance(solution_modified, city)
-
-# HashCode2014Solution.plot_streets(city, solution_modified)

@@ -46,6 +46,6 @@ function create_grid(city::City)
     return rg
 end
 
-function get_neighboring_junctions(rg::RouteGrid, city::City, junction::Int)
-    return g.neighbors[junction].junction
-end
+# function get_neighboring_junctions(rg::RouteGrid, city::City, junction::Int)
+#     return rg.neighbors[junction].junction
+# end

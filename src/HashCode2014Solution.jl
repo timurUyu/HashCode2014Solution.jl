@@ -4,12 +4,16 @@ using HashCode2014
 using Random: AbstractRNG, default_rng
 
 export random_walk_modified
+export RouteGridNode, RouteGrid, create_grid, get_neighboring_junctions
 
 include("random_walk_modified.jl")
+include("route_grid.jl")
 
-# city = HashCode2014.read_city()
+city = HashCode2014.read_city()
 
-# solution = HashCode2014.random_walk(city)
+# solution = random_walk_modified(city)
+
+rg = create_grid(city)
 
 # solution_modified = HashCode2014Solution
 

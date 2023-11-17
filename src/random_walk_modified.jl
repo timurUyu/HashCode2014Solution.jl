@@ -6,6 +6,7 @@ Modified version of random_walk() from HashCode2014.
 """
 function random_walk_modified(rng::AbstractRNG, city::City)
     (; total_duration, nb_cars, starting_junction, streets) = city
+
     itineraries = Vector{Vector{Int}}(undef, nb_cars)
 
     all_visited_streets = Set(Int[])
@@ -55,7 +56,7 @@ function random_walk_modified(rng::AbstractRNG, city::City)
                     if candidates[i][1] in all_visited_streets
                         push!(inds, i*ones(Int, 1)...)
                     else
-                        push!(inds, i*ones(Int, 49)...)
+                        push!(inds, i*ones(Int, 39)...)
                     end
                     
                 end

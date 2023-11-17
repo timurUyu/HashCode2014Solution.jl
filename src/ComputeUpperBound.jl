@@ -1,4 +1,3 @@
-using HashCode2014Solution
 """
     ComputeUpperBound(city, duration_limit)
 

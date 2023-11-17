@@ -1,9 +1,15 @@
 """
     ComputeUpperBound(city, duration_limit)
 
-Algorithm to compute upper bound on distance.
+Algorithm to compute upper bound on distance. Compares velocity of each street and constructs
+8 separate paths for each car in a "drag race" style journey. This approach relaxes the
+constraint on connectivity of the streets.
+
+# Fields
+- 'city::City': a street in the city
+- 'duration_limit::Int64': the total time limit imposed on cars traversing streets
 """
-function ComputeUpperBound(city::City, duration_limit::Int64)
+function ComputeUpperBound(city::City, duration_limit::Int64, rg::Main.HashCode2014Solution.RouteGrid)
 
     (; total_duration, nb_cars, starting_junction, streets) = city
 

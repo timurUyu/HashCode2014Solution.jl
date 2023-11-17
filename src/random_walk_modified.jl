@@ -1,7 +1,6 @@
-# modified version of random_walk() from HashCode2014
 """
-    random_walk(rng, city)
-    random_walk(city)
+    random_walk_modified(rng, city)
+    random_walk_modified(city)
 
 Modified version of random_walk() from HashCode2014.
 """

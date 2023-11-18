@@ -1,3 +1,5 @@
+using HashCode2014Solution
+
 """
     ComputeUpperBound(city, duration_limit)
 
@@ -9,7 +11,7 @@ constraint on connectivity of the streets.
 - 'city::City': a street in the city
 - 'duration_limit::Int64': the total time limit imposed on cars traversing streets
 """
-function ComputeUpperBound(city::City, duration_limit::Int64, rg::Main.HashCode2014Solution.RouteGrid)
+function ComputeUpperBound(city::City, duration_limit::Int64, rg::HashCode2014Solution.RouteGrid)
 
     (; total_duration, nb_cars, starting_junction, streets) = city
 

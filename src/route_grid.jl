@@ -6,10 +6,12 @@ Group a junction and a street that leads to it together.
 # Fields
 - 'street::Int': a street in the city
 - 'junction::Int': a junction that can be reached from the street
+- 'distance::Int': the length of the street
 """
 @kwdef struct RouteGridNode
     junction::Int
     street::Int
+    distance::Int
 end
 
 """
@@ -33,13 +35,13 @@ function create_grid(city::City)
             push!(rg.neighbors, [])
         end
 
-        push!(rg.neighbors[street.endpointA], RouteGridNode(street.endpointB, i))
+        push!(rg.neighbors[street.endpointA], RouteGridNode(street.endpointB, i, street.duration))
 
         if street.bidirectional
             while length(rg.neighbors) < street.endpointB
                 push!(rg.neighbors, [])
             end
-            push!(rg.neighbors[street.endpointB], RouteGridNode(street.endpointA, i))
+            push!(rg.neighbors[street.endpointB], RouteGridNode(street.endpointA, i, street.duration))
         end
     end
 

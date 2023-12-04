@@ -1,4 +1,3 @@
-using HashCode2014
 using Test
 
 @testset "HashCode2014Solution.jl" begin
@@ -10,7 +9,7 @@ using Test
             for neighbor in rg.neighbors[i]
                 @test HashCode2014.is_street(
                     i, neighbor.junction, city.streets[neighbor.street]
-                )
+                ) && neighbor.distance == city.streets[neighbor.street].duration
             end
         end
     end

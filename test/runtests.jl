@@ -1,5 +1,4 @@
 using HashCode2014
-using HashCode2014Solution
 using Test
 
 @testset "HashCode2014Solution.jl" begin

@@ -35,19 +35,28 @@ function create_grid(city::City)
             push!(rg.neighbors, [])
         end
 
-        push!(rg.neighbors[street.endpointA], RouteGridNode(street.endpointB, i, street.duration))
+        push!(
+            rg.neighbors[street.endpointA],
+            RouteGridNode(street.endpointB, i, street.duration),
+        )
 
         if street.bidirectional
             while length(rg.neighbors) < street.endpointB
                 push!(rg.neighbors, [])
             end
-            push!(rg.neighbors[street.endpointB], RouteGridNode(street.endpointA, i, street.duration))
+            push!(
+                rg.neighbors[street.endpointB],
+                RouteGridNode(street.endpointA, i, street.duration),
+            )
         end
     end
 
     return rg
 end
 
-# function get_neighboring_junctions(rg::RouteGrid, city::City, junction::Int)
-#     return rg.neighbors[junction].junction
-# end
+function Base.show(io::IO, rg_node::RouteGridNode)
+    return print(
+        io,
+        "RouteGridNode to junction $(rg_node.junction) along street $(rg_node.street) of length $(rg_node.distance).",
+    )
+end

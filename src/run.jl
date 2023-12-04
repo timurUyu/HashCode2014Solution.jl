@@ -1,5 +1,3 @@
-include("HashCode2014Solution.jl")
-
 using BenchmarkTools
 
 city = HashCode2014Solution.read_city()

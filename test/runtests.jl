@@ -1,5 +1,6 @@
 using Test
 using HashCode2014
+using HashCode2014Solution
 
 @testset "HashCode2014Solution.jl" begin
     @testset "Test RouteGrid correctness" begin
@@ -32,6 +33,17 @@ using HashCode2014
                 end
             end
         end
+    end
+
+    @testset "get_best_neighbor and get_best_neighbor! equality" begin
+        city = HashCode2014.read_city()
+        rg = HashCode2014Solution.create_grid(city)
+
+        path = zeros(Int, length(rg.neighbors))
+        path[1] = city.starting_junction
+
+        @test get_best_neighbor!(path, city.starting_junction, rg, 1) ==
+            get_best_neighbor(city.starting_junction, rg)
     end
 
     @testset "Test get_best_neighbor w/ length 2 paths" begin

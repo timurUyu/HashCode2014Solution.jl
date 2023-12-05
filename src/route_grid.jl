@@ -85,4 +85,8 @@ function convert_to_sorted_svector(v::Vector)
     return SVector(sort(v; by=x -> x.junction)...)
 end
 
+function Base.getindex(rg::RouteGrid, idx::Int)
+    return rg.neighbors[idx]
+end
+
 rg = create_grid(HashCode2014.read_city())

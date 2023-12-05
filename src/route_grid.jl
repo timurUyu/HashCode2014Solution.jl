@@ -14,6 +14,14 @@ Group a junction and a street that leads to it together.
     junction::Int
     street::Int
     distance::Int
+    duration::Int
+end
+
+function Base.show(io::IO, rg_node::RouteGridNode)
+    return print(
+        io,
+        "RouteGridNode to junction $(rg_node.junction) along street $(rg_node.street) of length $(rg_node.distance)",
+    )
 end
 
 """
@@ -26,6 +34,10 @@ Transform a city into a graph where each junction is a node, and the streets are
 """
 @kwdef struct RouteGrid
     neighbors::Vector{SArray{S,RouteGridNode,1} where S<:Tuple}
+end
+
+function Base.show(io::IO, rg::RouteGrid)
+    return print(io, "RouteGrid with $(length(rg.neighbors)) junctions")
 end
 
 """
@@ -47,7 +59,8 @@ function create_grid(city::City)
         end
 
         push!(
-            neighbors[street.endpointA], RouteGridNode(street.endpointB, i, street.duration)
+            neighbors[street.endpointA],
+            RouteGridNode(street.endpointB, i, street.distance, street.duration),
         )
 
         if street.bidirectional
@@ -56,7 +69,7 @@ function create_grid(city::City)
             end
             push!(
                 neighbors[street.endpointB],
-                RouteGridNode(street.endpointA, i, street.duration),
+                RouteGridNode(street.endpointA, i, street.distance, street.duration),
             )
         end
     end
@@ -66,13 +79,6 @@ end
 
 function convert_to_svector(v::Vector)
     return SVector(v...)
-end
-
-function Base.show(io::IO, rg_node::RouteGridNode)
-    return print(
-        io,
-        "RouteGridNode to junction $(rg_node.junction) along street $(rg_node.street) of length $(rg_node.distance).",
-    )
 end
 
 rg = create_grid(HashCode2014.read_city())

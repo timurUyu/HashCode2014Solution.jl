@@ -24,6 +24,10 @@ function Base.show(io::IO, rg_node::RouteGridNode)
     )
 end
 
+function Base.isless(rgn::RouteGridNode, idx::Int)
+    return rgn.junction < idx
+end
+
 """
     RouteGrid
 
@@ -74,11 +78,11 @@ function create_grid(city::City)
         end
     end
 
-    return RouteGrid(map(x -> convert_to_svector(x), neighbors))
+    return RouteGrid(map(x -> convert_to_sorted_svector(x), neighbors))
 end
 
-function convert_to_svector(v::Vector)
-    return SVector(v...)
+function convert_to_sorted_svector(v::Vector)
+    return SVector(sort(v; by=x -> x.junction)...)
 end
 
 rg = create_grid(HashCode2014.read_city())

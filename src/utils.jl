@@ -108,6 +108,5 @@ Get the neighbor of a junction that leads to the longest path. Path length is `n
 - `rg::RouteGrid`: a city, in the form of a RouteGrid
 - `n::Int=1`: the length of the path to consider
 """
-get_best_neighbor(starting_junction::Int, rg::RouteGrid; n::Int=1) = get_best_neighbor!(
-    zeros(length(rg.neighbors)), starting_junction, rg; current_idx=1, n=n
-)
+get_best_neighbor(starting_junction::Int, rg::RouteGrid; n::Int=1) =
+    get_best_neighbor!(zeros(Int, length(rg.neighbors)), starting_junction, rg, 1; n=n)

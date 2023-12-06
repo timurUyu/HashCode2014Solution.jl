@@ -9,7 +9,15 @@ HashCode2014Solution.jl is an extension of [Guillaume Dalle's](https://github.co
 
 ## How to use
 
-The package reads in data about the streets (and junctions) of Paris and restructures it into a struct City. 
+The package reads in data about the streets (and junctions) of Paris and restructures it into a struct City. Simply call the function read_city()
+
 ```
-test
+city = HashCode2014Solution.read_city()
+```
+
+```
+julia> A = [-4. -17.; 2. 2.]
+2×2 Matrix{Float64}:
+ -4.0  -17.0
+  2.0    2.0
 ```

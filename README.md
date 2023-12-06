@@ -6,3 +6,5 @@
 [![Coverage](https://codecov.io/gh/timurUyu/HashCode2014Solution.jl/branch/main/graph/badge.svg)](https://codecov.io/gh/timurUyu/HashCode2014Solution.jl)
 
 ## Test
+
+gf

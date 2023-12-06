@@ -5,6 +5,7 @@
 [![Build Status](https://github.com/timurUyu/HashCode2014Solution.jl/actions/workflows/CI.yml/badge.svg?branch=main)](https://github.com/timurUyu/HashCode2014Solution.jl/actions/workflows/CI.yml?query=branch%3Amain)
 [![Coverage](https://codecov.io/gh/timurUyu/HashCode2014Solution.jl/branch/main/graph/badge.svg)](https://codecov.io/gh/timurUyu/HashCode2014Solution.jl)
 
-## Test
+HashCode2014Solution.jl is an extension of [Guillaume Dalle's](https://github.com/gdalle) HashCode2014, a lightweight package designed to interact with the data of Google's 2014 Hash Code challenge. This package was developed as part of a project for the MIT course 18.C25 - [Real-World Computation with Julia](https://github.com/mitmath/JuliaComputation).
 
-gf
+
+

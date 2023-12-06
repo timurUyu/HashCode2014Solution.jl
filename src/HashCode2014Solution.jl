@@ -3,7 +3,7 @@ module HashCode2014Solution
 using HashCode2014
 using Random: AbstractRNG, default_rng
 
-export random_walk_modified
+export unique_random_walk
 export RouteGridNode,
     RouteGrid,
     create_grid,
@@ -14,14 +14,14 @@ export RouteGridNode,
     get_best_neighbor
 export ComputeUpperBound
 
-include("random_walk_modified.jl")
+include("unique_random_walk.jl")
 include("route_grid.jl")
 include("greedy_path.jl")
 include("ComputeUpperBound.jl")
 include("utils.jl")
 
 city = HashCode2014.read_city()
-solution = random_walk_modified(city)
+solution = unique_random_walk(city, rg)
 HashCode2014.is_feasible(solution, city)
 HashCode2014.total_distance(solution, city)
 

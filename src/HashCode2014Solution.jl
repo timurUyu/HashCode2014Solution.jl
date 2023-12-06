@@ -11,7 +11,9 @@ export RouteGridNode,
     path_length,
     greedy_path,
     get_best_neighbor!,
-    get_best_neighbor
+    get_best_neighbor,
+    get_length_n_paths,
+    generate_all_paths
 export ComputeUpperBound
 
 include("random_walk_modified.jl")
@@ -25,6 +27,6 @@ solution = random_walk_modified(city)
 HashCode2014.is_feasible(solution, city)
 HashCode2014.total_distance(solution, city)
 
-rg = create_grid(city)
+rg = create_grid(city, 2)
 
 end

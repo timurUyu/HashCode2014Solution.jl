@@ -28,6 +28,10 @@ function Base.isless(rgn::RouteGridNode, idx::Int)
     return rgn.junction < idx
 end
 
+function Base.isless(idx::Int, rgn::RouteGridNode)
+    return idx < rgn.junction
+end
+
 """
     RouteGrid
 
@@ -35,10 +39,12 @@ Transform a city into a graph where each junction is a node, and the streets are
 
 # Fields
 - `neighbors::Vector{SVector{RouteGridNode}}`: for each junction, the list of street-junctions that can be reached from it.
+- `paths::Vector{Vector{SVector{RouteGridNode}}}`: all paths of length `n` for each junction
+- `path_length::Int`: the length of the paths to consider
 """
 @kwdef struct RouteGrid
     neighbors::Vector{SArray{S,RouteGridNode,1} where S<:Tuple}
-    paths::Vector{Set{SArray{T,RouteGridNode,1} where T<:Tuple}}
+    paths::Vector{Vector{SArray{T,RouteGridNode,1} where T<:Tuple}}
     path_length::Int
 end
 
@@ -61,7 +67,7 @@ Create a RouteGrid from a City, and compute all paths of length `n` for each jun
 function create_grid(city::City, n::Int=2)
     neighbors::Vector{Vector{RouteGridNode}} = []
 
-    for i in 1:length(city.streets)
+    @inbounds for i in 1:length(city.streets)
         street = city.streets[i]
         while length(neighbors) < street.endpointA
             push!(neighbors, [])
@@ -141,10 +147,10 @@ function generate_all_paths(neighbors::Vector{Vector{RouteGridNode}}; n::Int=1)
         throw(ArgumentError("n must be at least 1"))
     end
 
-    paths = Set{SVector{n,RouteGridNode}}[]
+    paths = Vector{SVector{n,RouteGridNode}}[]
 
-    for i in 1:length(neighbors)
-        push!(paths, Set(get_length_n_paths(i, neighbors; n=n)))
+    @inbounds for i in 1:length(neighbors)
+        push!(paths, Vector(get_length_n_paths(i, neighbors; n=n)))
     end
 
     return paths

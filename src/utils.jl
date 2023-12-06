@@ -97,3 +97,19 @@ Get the neighbor of a junction that leads to the longest path.
 """
 get_best_neighbor(starting_junction::Int, rg::RouteGrid) =
     get_best_neighbor!(zeros(Int, length(rg.neighbors)), starting_junction, rg, 1)
+
+"""
+    change_duration(city, total_duration)
+
+Create a new City with a different `total_duration` and everything else equal.
+"""
+function change_duration(city::City, total_duration)
+    new_city = City(;
+        total_duration=total_duration,
+        nb_cars=city.nb_cars,
+        starting_junction=city.starting_junction,
+        junctions=copy(city.junctions),
+        streets=copy(city.streets),
+    )
+    return new_city
+end

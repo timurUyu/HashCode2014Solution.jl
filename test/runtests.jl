@@ -48,11 +48,11 @@ using HashCode2014Solution
 
     @testset "Test get_best_neighbor w/ length 2 paths" begin
         city = HashCode2014.read_city()
-        rg = HashCode2014Solution.create_grid(city)
+        rg = HashCode2014Solution.create_grid(city, 2)
         calculataed_max = -Inf
 
         for i in 1:length(rg.neighbors)
-            best_neighbor, max_length = HashCode2014Solution.get_best_neighbor(i, rg; n=2)
+            best_neighbor, max_length = HashCode2014Solution.get_best_neighbor(i, rg)
 
             calculataed_max = -Inf
             path = [0, 0]

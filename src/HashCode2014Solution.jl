@@ -7,7 +7,8 @@ export random_walk_modified
 export RouteGridNode, RouteGrid, create_grid
 export path_length, get_best_neighbor!, get_best_neighbor
 export greedy_path!, greedy_path
-export get_length_n_paths, generate_all_paths, random_walk_then_greedy
+export get_length_n_paths, generate_all_paths
+# export random_walk_then_greedy
 export change_duration
 export ComputeUpperBound
 

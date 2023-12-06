@@ -35,14 +35,14 @@ using HashCode2014Solution
         end
     end
 
-    @testset "get_best_neighbor and get_best_neighbor! equality" begin
+    @testset "get_best_neighbor signature equality" begin
         city = HashCode2014.read_city()
         rg = HashCode2014Solution.create_grid(city)
 
         path = zeros(Int, length(rg.neighbors))
         path[1] = city.starting_junction
 
-        @test get_best_neighbor!(path, city.starting_junction, rg, 1) ==
+        @test get_best_neighbor(path, city.starting_junction, rg, 1) ==
             get_best_neighbor(city.starting_junction, rg)
     end
 

@@ -5,6 +5,12 @@
 Modified version of random_walk() from HashCode2014. Uses a custom type, RouteGrid, to
 determine candidate streets and weights against streets which have already been traversed.
 Threading over the random walks of each car improves performance significantly.
+
+# Arguments
+- `rng::AbstractRNG`: random number generator
+- `city::City`: city of junctions connected by streets
+- `rg::RouteGrid`: graph representing the city
+
 """
 function unique_random_walk(rng::AbstractRNG, city::City, rg)
     (; total_duration, nb_cars, starting_junction, streets) = city

@@ -1,6 +1,5 @@
 using HashCode2014;
 using StaticArrays;
-using Printf;
 
 """
     greedy_path(rg::RouteGrid, starting_junction::Int, total_duration::Int; n::Int=1)

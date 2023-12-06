@@ -69,4 +69,4 @@ julia> HashCode2014Solution.total_distance(solution, city)
 ```
 
 ## Documentation
-The full documentation is available at [GitHub Pages](https://juliagraphs.org/Graphs.jl/dev/).
+The full documentation is available at [here](https://timuruyu.github.io/HashCode2014Solution.jl/dev/).

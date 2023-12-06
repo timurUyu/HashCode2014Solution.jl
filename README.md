@@ -17,10 +17,9 @@ city = HashCode2014Solution.read_city()
 
 yes
 
-```
-julia> A = [-4. -17.; 2. 2.]
-2×2 Matrix{Float64}:
- -4.0  -17.0
-  2.0    2.0
+```julia
+a = 2
+@show a
+
 ```
 

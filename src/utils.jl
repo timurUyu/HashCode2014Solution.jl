@@ -30,9 +30,9 @@ function path_length(path::AbstractVector{Int}, rg::RouteGrid)
 end
 
 """
-    get_best_neighbor!(current_path::Vector{Int}, starting_junction::Int, rg::RouteGrid, current_idx::Int, n::Int=1)
+    get_best_neighbor_fast!(current_path::Vector{Int}, starting_junction::Int, rg::RouteGrid, current_idx::Int, n::Int=1)
 
-Get the neighbor of a junction that leads to the longest path. Path length is `n=1` by default, but can be changed. A
+Get the neighbor of a junction that leads to the longest path. Path length is specified by `rg.path_length`. A
 path taken so far can also be specified.
 
 # Arguments
@@ -40,14 +40,9 @@ path taken so far can also be specified.
 - `starting_junction::Int`: the junction from which to start
 - `rg::RouteGrid`: a city, in the form of a RouteGrid
 - `current_idx::Int`: the index of the junction in `current_path` that is being considered the starting junction
-- `n::Int=1`: the length of the path to consider
 """
 function get_best_neighbor!(
-    current_path::Vector{Int},
-    starting_junction::Int,
-    rg::RouteGrid,
-    current_idx::Int;
-    n::Int=1,
+    current_path::Vector{Int}, starting_junction::Int, rg::RouteGrid, current_idx::Int
 )
     # A perfect path is one that visits all junctions once and only once
     if length(current_path) != length(rg.neighbors)
@@ -74,24 +69,17 @@ function get_best_neighbor!(
     max_length, best_neighbor = -Inf, RouteGridNode(-1, -1, -1, -1)
     new_path_length = 0
 
-    for neighbor in rg[starting_junction]
-        if neighbor.junction == starting_junction
-            continue
-        end
-
-        current_path[current_idx + 1] = neighbor.junction
-
-        if n == 1
-            new_path_length = path_length(view(current_path, 1:(current_idx + 1)), rg)
-        else
-            _, new_path_length = get_best_neighbor!(
-                current_path, neighbor.junction, rg, current_idx + 1; n=n - 1
-            )
-        end
+    for path in rg.paths[starting_junction]
+        current_path[(current_idx + 1):(current_idx + rg.path_length)] = map(
+            x -> x.junction, path
+        )
+        new_path_length = path_length(
+            view(current_path, 1:(current_idx + rg.path_length)), rg
+        )
 
         if new_path_length > max_length
             max_length = new_path_length
-            best_neighbor = neighbor
+            best_neighbor = path[2]
         end
     end
 
@@ -99,14 +87,13 @@ function get_best_neighbor!(
 end
 
 """
-    get_best_neighbor(starting_junction::Int, rg::RouteGrid, n::Int=1)
+    get_best_neighbor(starting_junction::Int, rg::RouteGrid)
 
-Get the neighbor of a junction that leads to the longest path. Path length is `n=1` by default, but can be changed.
+Get the neighbor of a junction that leads to the longest path.
 
 # Arguments
 - `starting_junction::Int`: the junction from which to start
 - `rg::RouteGrid`: a city, in the form of a RouteGrid
-- `n::Int=1`: the length of the path to consider
 """
-get_best_neighbor(starting_junction::Int, rg::RouteGrid; n::Int=1) =
-    get_best_neighbor!(zeros(Int, length(rg.neighbors)), starting_junction, rg, 1; n=n)
+get_best_neighbor(starting_junction::Int, rg::RouteGrid) =
+    get_best_neighbor!(zeros(Int, length(rg.neighbors)), starting_junction, rg, 1)

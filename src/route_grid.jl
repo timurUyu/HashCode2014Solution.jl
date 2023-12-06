@@ -38,12 +38,15 @@ Transform a city into a graph where each junction is a node, and the streets are
 """
 @kwdef struct RouteGrid
     neighbors::Vector{SArray{S,RouteGridNode,1} where S<:Tuple}
-    paths::Vector{Set{SArray{T,Int,1} where T<:Tuple}}
+    paths::Vector{Set{SArray{T,RouteGridNode,1} where T<:Tuple}}
     path_length::Int
 end
 
 function Base.show(io::IO, rg::RouteGrid)
-    return print(io, "RouteGrid with $(length(rg.neighbors)) junctions")
+    return print(
+        io,
+        "RouteGrid with $(length(rg.neighbors)) junctions and paths of length $(rg.path_length)",
+    )
 end
 
 """
@@ -102,20 +105,20 @@ Get all paths of length `n` that start at `starting_junction`.
 - `n::Int=1`: the length of the path to consider
 """
 function get_length_n_paths(
-    junction::Int, neighbors::Vector{Vector{RouteGridNode}}; n::Int=1
+    starting_junction::Int, neighbors::Vector{Vector{RouteGridNode}}; n::Int=1
 )
-    if n < 0
-        throw(ArgumentError("n must be non-negative"))
+    if n < 1
+        throw(ArgumentError("n must be at least 1"))
     end
 
-    if n == 0
-        return [[junction]]
+    if n == 1
+        return [[n] for n in neighbors[starting_junction]]
     end
 
-    paths = Vector{Int}[]
-    for neighbor in neighbors[junction]
+    paths = Vector{RouteGridNode}[]
+    for neighbor in neighbors[starting_junction]
         for path in get_length_n_paths(neighbor.junction, neighbors; n=n - 1)
-            push!(paths, pushfirst!(path, junction))
+            push!(paths, pushfirst!(path, neighbor))
         end
     end
 
@@ -133,12 +136,12 @@ Generate all paths of length `n` for each junction in `rg`.
 - `n::Int=2`: the length of the path to consider
 
 """
-function generate_all_paths(neighbors::Vector{Vector{RouteGridNode}}; n::Int=2)
-    if n < 2
-        throw(ArgumentError("n must be at least 2"))
+function generate_all_paths(neighbors::Vector{Vector{RouteGridNode}}; n::Int=1)
+    if n < 1
+        throw(ArgumentError("n must be at least 1"))
     end
 
-    paths = Set{SVector{n + 1,Int}}[]
+    paths = Set{SVector{n,RouteGridNode}}[]
 
     for i in 1:length(neighbors)
         push!(paths, Set(get_length_n_paths(i, neighbors; n=n)))

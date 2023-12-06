@@ -11,18 +11,18 @@ export get_length_n_paths, generate_all_paths, get_solution
 export change_duration
 export ComputeUpperBound
 
-include("unique_random_walk.jl")
 include("route_grid.jl")
 include("greedy_path.jl")
 include("ComputeUpperBound.jl")
 include("utils.jl")
 include("final_solution.jl")
+include("unique_random_walk.jl")
+
 
 city = HashCode2014.read_city()
+rg = create_grid(city, 2)
+
 solution = unique_random_walk(city, rg)
 HashCode2014.is_feasible(solution, city)
 HashCode2014.total_distance(solution, city)
-
-rg = create_grid(city, 2)
-
 end

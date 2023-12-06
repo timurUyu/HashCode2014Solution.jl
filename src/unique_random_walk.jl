@@ -12,7 +12,7 @@ Threading over the random walks of each car improves performance significantly.
 - `rg::RouteGrid`: graph representing the city
 
 """
-function unique_random_walk(rng::AbstractRNG, city::City, rg)
+function unique_random_walk(rng::AbstractRNG, city::City, rg::RouteGrid)
     (; total_duration, nb_cars, starting_junction, streets) = city
 
     # total_duration = 18000
@@ -61,4 +61,4 @@ function unique_random_walk(rng::AbstractRNG, city::City, rg)
     return Solution(itineraries)
 end
 
-unique_random_walk(city::City, rg) = unique_random_walk(default_rng(), city, rg)
+unique_random_walk(city::City, rg::RouteGrid) = unique_random_walk(default_rng(), city, rg)

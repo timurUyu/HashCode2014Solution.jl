@@ -20,6 +20,5 @@ yes
 ```julia
 a = 2
 @show a
-
 ```
 

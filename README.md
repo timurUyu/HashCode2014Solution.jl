@@ -10,5 +10,6 @@ HashCode2014Solution.jl is an extension of [Guillaume Dalle's](https://github.co
 ## How to use
 
 The package reads in data about the streets (and junctions) of Paris and restructures it into a struct City. 
-
-  test
+```
+test
+```
